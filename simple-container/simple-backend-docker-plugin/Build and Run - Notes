@@ -1,0 +1,16 @@
+#
+# No Dockerfile. Image is built from docker-maven-plugin
+#
+
+# Build image
+mvn docker:build
+(or via execution)
+
+
+# Run
+docker run -p 8081:8081 -t chttt/simple-backend-docker-plugin
+
+
+# Open Browser
+http://localhost:8081/api/entries
+(or maybe use docker machine ip instead of localhost?)

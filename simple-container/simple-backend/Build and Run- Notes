@@ -1,0 +1,18 @@
+# Build image
+navigate to Dockerfile directory and run:
+> docker build -t simple-backend
+
+# Build image via maven
+plugin
+
+
+
+# Run
+
+            docker run -p 8081:8081 -t chttt/simple-backend
+
+
+# Open Browser
+            http://localhost:8081/api/entries
+
+            (or maybe use docker machine ip instead of localhost?)
