@@ -1,18 +1,23 @@
+#
+# Dockerfile can be used to build an Image via Terminal
+# or via maven dockerfile-plugin
+#
+
+
 # Build image
 navigate to Dockerfile directory and run:
-> docker build -t simple-backend
+> docker build -t simple-backend .
+-t : Image Tag
 
-# Build image via maven
-plugin
 
+# Build image via maven dockerfile-plugin
+'package' automatically runs docker build
 
 
 # Run
-
-            docker run -p 8081:8081 -t chttt/simple-backend
+docker run -p 8082:8082 -t simple-backend
 
 
 # Open Browser
-            http://localhost:8081/api/entries
-
-            (or maybe use docker machine ip instead of localhost?)
+http://localhost:8081/api/entries
+(or maybe use docker machine ip instead of localhost?)
