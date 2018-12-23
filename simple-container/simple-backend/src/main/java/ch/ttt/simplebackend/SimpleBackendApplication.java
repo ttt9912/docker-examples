@@ -45,5 +45,4 @@ public class SimpleBackendApplication {
 		log.info("returning all entries: {}", entries);
 		return result.toString();
 	}
-
 }

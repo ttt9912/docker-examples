@@ -1,23 +1,34 @@
 #
-# Dockerfile can be used to build an Image via Terminal
-# or via maven dockerfile-plugin
+# Persist runtime data in volumes
+# in Dockerfile: add a volume pointing to /tmp
 #
 
 
 # Build image
 navigate to Dockerfile directory and run:
-> docker build -t simple-backend .
+> docker build -t persistent-backend .
 -t : Image Tag
 
 
-# Build image via maven dockerfile-plugin
-'package' automatically runs docker build
+# Create & run container
+volume 'simple-vol' points to Tomcats /tmp directory
+> docker run -p 8080:8080 -t persistent-backend
 
 
-# Run
-docker run -p 8082:8082 -t simple-backend
+# Rerun existing container
+> docker start -i <containerId>
+
+
+# --- Alternative to volume in Dockerfile - reuse same volume for all containers ---
+create volume
+include volume in run command
+result: each container will reuse the same volume
+> docker volume create simple-vol
+> docker run --mount source=simple-vol,target=/tmp -p 8080:8080 persistent-backend
 
 
 # Open Browser
 http://localhost:8081/api/entries
 (or maybe use docker machine ip instead of localhost?)
+
+
