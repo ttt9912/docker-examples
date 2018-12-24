@@ -15,9 +15,14 @@ navigate to Dockerfile directory and run:
 
 
 # Run
-docker run -p 8082:8082 -t simple-backend
+> docker run -p 8080:8082 -t simple-backend
+
+
+# Expose ports (-p)
+-p:    Publish a container's port or a range of ports to the host
+       maps port 8082 of the container to port 8080 of the docker machine
 
 
 # Open Browser
-http://localhost:8081/api/entries
+http://localhost:8080/api/entries
 (or maybe use docker machine ip instead of localhost?)

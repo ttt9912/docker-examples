@@ -1,30 +1,41 @@
 #
-# Persist runtime data in volumes
-# in Dockerfile: add a volume pointing to /tmp
+# Orchestrate Spring Boot App & Postgres DB
+# Postgres DB uses a volume to persist runtime data
 #
 
-
-# Build image
-navigate to Dockerfile directory and run:
-> docker build -t persistent-backend .
--t : Image Tag
-
-
-# Create & run container
-volume 'simple-vol' points to Tomcats /tmp directory
-> docker run -p 8080:8080 -t persistent-backend
+# compose.yml file - spring boot app
+- service:      is similar to container
+- build:        points to spring boot apps Dockerfile
+- depends_on:   start DB server first
+- ports:        publish ports - alternative to -p
 
 
-# Rerun existing container
-> docker start -i <containerId>
+# compose.yml file - Postgres server
+- container_name:   represents host name and can be accessed
+                    (e.g. via postgre-db:5432/springbootdb)
+- expose:       documentation purpose only - spring boot app could
+                also access the db without expose if in the same network
+                no port forwarding via docker machine here (not accessible from outside)
+- volumes:      mount volume 'db-data' into container directory '/var/lib/postgresql/data'
+- environment:  optional parameters - let PostgreSQL-Server create DB 'springbootdb'
 
 
-# --- Alternative to volume in Dockerfile - reuse same volume for all containers ---
-create volume
-include volume in run command
-result: each container will reuse the same volume
-> docker volume create simple-vol
-> docker run --mount source=simple-vol,target=/tmp -p 8080:8080 persistent-backend
+# Persist postgres data
+postgres container uses a volume
+
+
+# Expose and publish ports
+--expose    expose a port or a range of ports inside the container
+-P          publish all exposed ports to the host interfaces
+-p          publish a container's specific port or a range of ports to the host
+
+
+# Create images and run containers
+> docker-compose up
+
+
+# Stop cluster, shutdown containers
+> docker-compose down
 
 
 # Open Browser
